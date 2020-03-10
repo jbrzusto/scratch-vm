@@ -412,16 +412,6 @@ class Picoboard {
 };
 
 /**
- * Enum for picoboard pin states (really, just the button).
- * @readonly
- * @enum {string}
- */
-const PicoboardPinState = {
-    ON: 'on',
-    OFF: 'off'
-};
-
-/**
  * Scratch 3.0 blocks to interact with a Picoboard peripheral.
  */
 class Scratch3PicoboardBlocks {
@@ -439,31 +429,6 @@ class Scratch3PicoboardBlocks {
     static get EXTENSION_ID () {
         return 'picoboard';
     }
-
-    /**
-     * @return {array} - text and values for each pin state menu element
-     */
-    get PIN_STATE_MENU () {
-        return [
-            {
-                text: formatMessage({
-                    id: 'picoboard.pinStateMenu.on',
-                    default: 'on',
-                    description: 'label for on element in button state picker for picoboard extension'
-                }),
-                value: PicoboardPinState.ON
-            },
-            {
-                text: formatMessage({
-                    id: 'picoboard.pinStateMenu.off',
-                    default: 'off',
-                    description: 'label for off element in button state picker for picoboard extension'
-                }),
-                value: PicoboardPinState.OFF
-            }
-        ];
-    }
-
 
     /**
      * Construct a set of Picoboard blocks.
