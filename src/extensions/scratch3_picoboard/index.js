@@ -95,10 +95,10 @@ class Picoboard {
             light: 0,
             sound: 0,
             button: 0,
-            resistanceA: 0,
-            resistanceB: 0,
-            resistanceC: 0,
-            resistanceD: 0
+            A: 0,
+            B: 0,
+            C: 0,
+            D: 0
         };
 
         /**
@@ -172,29 +172,29 @@ class Picoboard {
     /**
      * @return {number} - the latest value received for RESISTANCE A.
      */
-    get resistanceA () {
-        return Math.round(this._sensors.resistanceA / 1.023) / 10.0;
+    get A () {
+        return Math.round(this._sensors.A / 1.023) / 10.0;
     }
 
     /**
      * @return {number} - the latest value received for RESISTANCE B.
      */
-    get resistanceB () {
-        return Math.round(this._sensors.resistanceB / 1.023) / 10.0;
+    get B () {
+        return Math.round(this._sensors.B / 1.023) / 10.0;
     }
 
     /**
      * @return {number} - the latest value received for RESISTANCE C.
      */
-    get resistanceC () {
-        return Math.round(this._sensors.resistanceC / 1.023) / 10.0;
+    get C () {
+        return Math.round(this._sensors.C / 1.023) / 10.0;
     }
 
     /**
      * @return {number} - the latest value received for RESISTANCE D.
      */
-    get resistanceD () {
-        return Math.round(this._sensors.resistanceD / 1.023) / 10.0;
+    get D () {
+        return Math.round(this._sensors.D / 1.023) / 10.0;
     }
 
     /**
@@ -345,19 +345,19 @@ class Picoboard {
                     var val = this._highbits | b;
                     switch (this._channel) {
                     case 0:
-                        this._sensors.resistanceD = val;
+                        this._sensors.D = val;
                         break;
                     case 1:
-                        this._sensors.resistanceC = val;
+                        this._sensors.C = val;
                         break;
                     case 2:
-                        this._sensors.resistanceB = val;
+                        this._sensors.B = val;
                         break;
                     case 3:
                         this._sensors.button = (0 == val);
                         break;
                     case 4:
-                        this._sensors.resistanceA = val;
+                        this._sensors.A = val;
                         break;
                     case 5:
                         this._sensors.light = val;
@@ -394,9 +394,7 @@ class Picoboard {
     }
 
     /**
-     * @param {number} pin - the pin to check touch state.
-     * @return {number} - the latest value received for the touch pin states.
-     * @private
+     * Handle apparent end of serial data.
      */
     _serialDataStoped () {
         this._reset();
@@ -479,10 +477,51 @@ class Scratch3PicoboardBlocks {
                 },
                 '---',
                 {
+                    opcode: 'whenSensor',
+                    text: formatMessage({
+                        id: 'picoboard.whenSensor',
+                        default: 'when [SENSOR] [OP] [REFERENCE]',
+                        description: 'check for when sensor value is < or > than reference'
+                    }),
+                    blockType: BlockType.HAT,
+                    arguments: {
+                        SENSOR: {
+                            type: ArgumentType.STRING,
+                            menu: 'SENSOR',
+                            defaultValue: 'slider'
+                        },
+                        OP: {
+                            type: ArgumentType.STRING,
+                            menu: 'OP',
+                            defaultValue: '<'
+                        },
+                        REFERENCE: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 50
+                        }
+                    }
+                },
+                {
+                    opcode: 'getSensor',
+                    text: formatMessage({
+                        id: 'picoboard.sensor',
+                        default: 'get [SENSOR]',
+                        description: 'get latest value for sensor'
+                    }),
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        SENSOR: {
+                            type: ArgumentType.STRING,
+                            menu: 'SENSOR',
+                            defaultValue: 'slider'
+                        }
+                    }
+                },
+                {
                     opcode: 'getSlider',
                     text: formatMessage({
                         id: 'picoboard.slider',
-                        default: 'slider position',
+                        default: 'slider',
                         description: 'where is the slider positioned? (0 = left end; 100 = right end)'
                     }),
                     blockType: BlockType.REPORTER,
@@ -493,7 +532,7 @@ class Scratch3PicoboardBlocks {
                     opcode: 'getLight',
                     text: formatMessage({
                         id: 'picoboard.light',
-                        default: 'illumination',
+                        default: 'light',
                         description: 'what is the light level? (0 = dark; 100 = very bright)'
                     }),
                     blockType: BlockType.REPORTER,
@@ -504,7 +543,7 @@ class Scratch3PicoboardBlocks {
                     opcode: 'getSound',
                     text: formatMessage({
                         id: 'picoboard.sound',
-                        default: 'sound level',
+                        default: 'sound',
                         description: 'what is the sound level? (0 = quiet; 100 = very loud)'
                     }),
                     blockType: BlockType.REPORTER,
@@ -512,10 +551,10 @@ class Scratch3PicoboardBlocks {
                     }
                 },
                 {
-                    opcode: 'getResistanceA',
+                    opcode: 'getA',
                     text: formatMessage({
-                        id: 'picoboard.resistanceA',
-                        default: 'input A resistance',
+                        id: 'picoboard.A',
+                        default: 'A',
                         description: 'how much resistance across input A? (0 = none; 100 = high)'
                     }),
                     blockType: BlockType.REPORTER,
@@ -523,10 +562,10 @@ class Scratch3PicoboardBlocks {
                     }
                 },
                 {
-                    opcode: 'getResistanceB',
+                    opcode: 'getB',
                     text: formatMessage({
-                        id: 'picoboard.resistanceB',
-                        default: 'input B resistance',
+                        id: 'picoboard.B',
+                        default: 'B',
                         description: 'how much resistance across input B? (0 = none; 100 = high)'
                     }),
                     blockType: BlockType.REPORTER,
@@ -534,10 +573,10 @@ class Scratch3PicoboardBlocks {
                     }
                 },
                 {
-                    opcode: 'getResistanceC',
+                    opcode: 'getC',
                     text: formatMessage({
-                        id: 'picoboard.resistanceC',
-                        default: 'input C resistance',
+                        id: 'picoboard.C',
+                        default: 'C',
                         description: 'how much resistance across input C? (0 = none; 100 = high)'
                     }),
                     blockType: BlockType.REPORTER,
@@ -545,10 +584,10 @@ class Scratch3PicoboardBlocks {
                     }
                 },
                 {
-                    opcode: 'getResistanceD',
+                    opcode: 'getD',
                     text: formatMessage({
-                        id: 'picoboard.resistanceD',
-                        default: 'input D resistance',
+                        id: 'picoboard.D',
+                        default: 'D',
                         description: 'how much resistance across input D? (0 = none; 100 = high)'
                     }),
                     blockType: BlockType.REPORTER,
@@ -557,6 +596,13 @@ class Scratch3PicoboardBlocks {
                 },
             ],
             menus: {
+                SENSOR: {
+                    items: ['slider', 'light', 'sound', 'A', 'B', 'C', 'D']
+                },
+                OP: {
+                    acceptReporters: true,
+                    items: ['<', '>']
+                }
             }
         };
     }
@@ -571,12 +617,43 @@ class Scratch3PicoboardBlocks {
     }
 
     /**
+     * Compare a sensor's level to a reference.
+     * @param {object} args - the block's arguments.
+     * @property {string} SENSOR - the sensor: "slider", "light", "sound", "A", "B", "C", "D"
+     * @property {string} OP - the comparison operation: '<' or '>'.
+     * @property {number} REFERENCE - the value to compare against.
+     * @return {boolean} - the result of the comparison, or false on error.
+     */
+    whenSensor (args) {
+        val = this._peripheral[args.SENSOR];
+        switch (args.OP) {
+        case '<':
+            return val < cast.toNumber(args.REFERENCE);
+        case '>':
+            return val > cast.toNumber(args.REFERENCE);
+        default:
+            log.warn(`Unknown comparison operator in whenSensor: ${args.OP}`);
+            return false;
+        }
+    }
+
+    /**
      * Test whether the button is pressed
      * @param {object} args - ignored
      * @return {boolean} - true if the button is pressed.
      */
     isButtonPressed (args) {
         return this._peripheral.button;
+    }
+
+    /**
+     * Get a sensor's level
+     * @param {object} args - the block's arguments.
+     * @property {string} SENSOR - the sensor: "slider", "light", "sound", "A", "B", "C", "D"
+     * @return {number} - the sensor's latest value
+     */
+    getSensor (args) {
+        return this._peripheral[args.SENSOR];
     }
 
     /**
@@ -607,32 +684,32 @@ class Scratch3PicoboardBlocks {
      * @param {object} args - the block's arguments - ignored
      * @return {number} - the resistance on input A
      */
-    getResistanceA (args) {
-        return this._peripheral.resistanceA;
+    getA (args) {
+        return this._peripheral.A;
     }
 
     /**
      * @param {object} args - the block's arguments - ignored
      * @return {number} - the resistance on input B
      */
-    getResistanceB (args) {
-        return this._peripheral.resistanceB;
+    getB (args) {
+        return this._peripheral.B;
     }
 
     /**
      * @param {object} args - the block's arguments - ignored
      * @return {number} - the resistance on input C
      */
-    getResistanceC (args) {
-        return this._peripheral.resistanceC;
+    getC (args) {
+        return this._peripheral.C;
     }
 
     /**
      * @param {object} args - the block's arguments - ignored
      * @return {number} - the resistance on input D
      */
-    getResistanceD (args) {
-        return this._peripheral.resistanceD;
+    getD (args) {
+        return this._peripheral.D;
     }
 
 };
