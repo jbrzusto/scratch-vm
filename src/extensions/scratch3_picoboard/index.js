@@ -301,7 +301,6 @@ class Picoboard {
             () => this._ble.handleDisconnectError(BLEDataStoppedError),
             BLETimeout
         );
-        this.send(BLECommand.CMD_SEND_DATA, null);
     }
 
     /**
@@ -371,7 +370,6 @@ class Picoboard {
                         // last channel value received; send command to
                         // restart transmit of current sensor readings.
                         this._ble.read(BLEUUID.service, BLEUUID.rxChar, true, this._onMessage);
-//                        this.send(BLECommand.CMD_SEND_DATA, null);
                         break;
                     case 15:
                         if (val != 4) {
