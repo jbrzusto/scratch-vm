@@ -201,8 +201,8 @@ class BLE extends JSONRPC {
      * Disconnect the socket, and if the extension using this socket has a
      * reset callback, call it. Finally, emit an error to the runtime.
      */
-    handleDisconnectError (e) {
-        console.log(`BLE disconnect error: ${JSON.stringify(e)}`);
+    handleDisconnectError (/* e */) {
+        // log.error(`BLE error: ${JSON.stringify(e)}`);
 
         if (!this._connected) return;
 
@@ -218,15 +218,13 @@ class BLE extends JSONRPC {
         });
     }
 
-    _handleRequestError (e) {
-        console.log(`BLE request error: ${JSON.stringify(e)}`);
-        // picoboard: disable this error because it kills the picoboard connection
-        // and I can't see why it's happening in the first place.
+    _handleRequestError (/* e */) {
+        // log.error(`BLE error: ${JSON.stringify(e)}`);
 
-        // this._runtime.emit(this._runtime.constructor.PERIPHERAL_REQUEST_ERROR, {
-        //     message: `Scratch lost connection to`,
-        //     extensionId: this._extensionId
-        // });
+        this._runtime.emit(this._runtime.constructor.PERIPHERAL_REQUEST_ERROR, {
+            message: `Scratch lost connection to`,
+            extensionId: this._extensionId
+        });
     }
 
     _handleDiscoverTimeout () {
