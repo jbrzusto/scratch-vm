@@ -50,7 +50,6 @@ const BLEDataStoppedError = 'PicoBoard extension stopped receiving data';
 const BLEUUID = {
     service: 0xf005,
     rxChar: '9dfdc434-5bfb-11ea-af5e-074c022b8311',
-    txChar: '9eb6187c-5bfb-11ea-9bf6-73236440cf10'
 };
 
 /**
