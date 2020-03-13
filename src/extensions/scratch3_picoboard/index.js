@@ -43,7 +43,6 @@ const BLEDataStoppedError = 'PicoBoard extension stopped receiving data';
 
 /**
  * Enum for picoboard protocol.
- * https://github.com/LLK/scratch-picoboard-firmware/blob/master/protocol.md
  * @readonly
  * @enum {string}
  */
@@ -53,12 +52,12 @@ const BLEUUID = {
 };
 
 /**
- * Manage communication with a Picoboard peripheral over a Scrath Link client socket.
+ * Manage communication with a PicoBoard peripheral over a Scrath Link client socket.
  */
-class Picoboard {
+class PicoBoard {
 
     /**
-     * Construct a Picoboard communication object.
+     * Construct a PicoBoard communication object.
      * @param {Runtime} runtime - the Scratch 3.0 runtime
      * @param {string} extensionId - the id of the extension
      */
@@ -101,14 +100,14 @@ class Picoboard {
         };
 
         /**
-         * Most recent channel # received from picoboard
+         * Most recent channel # received from PicoBoard
          * @type {number}
          * @private
          */
         this._channel = null;
 
         /**
-         * Most recent high 3-bits of sensor reading received from picoboard
+         * Most recent high 3-bits of sensor reading received from PicoBoard
          * (Stored already shifted).
          * @type {number}
          * @private
@@ -232,7 +231,7 @@ class Picoboard {
     }
 
     /**
-     * Disconnect from the picoboard.
+     * Disconnect from the PicoBoard.
      */
     disconnect () {
         if (this._ble) {
@@ -253,8 +252,8 @@ class Picoboard {
     }
 
     /**
-     * Return true if connected to the picoboard.
-     * @return {boolean} - whether the picoboard is connected.
+     * Return true if connected to the PicoBoard.
+     * @return {boolean} - whether the PicoBoard is connected.
      */
     isConnected () {
         let connected = false;
@@ -314,7 +313,7 @@ class Picoboard {
     }
 
     /**
-     * Process bytes received.  Bit format of data items from picoboard is:
+     * Process bytes received.  Bit format of data items from PicoBoard is:
      * [1, C3, C2, C1, C0, D9, D8, D7], [0, D6, D5, D4, D3, D2, D1, D0]
      * where
      *   - [C3, C2, C1, C0] is a 4-bit channel #
@@ -332,7 +331,7 @@ class Picoboard {
      * 6 - sound
      * 7 - slider
      *
-     * @param {object} base64 - the incoming bytes from the picoboard
+     * @param {object} base64 - the incoming bytes from the PicoBoard
      * @private
      */
     _onMessage (base64) {
@@ -383,7 +382,7 @@ class Picoboard {
                         break;
                     case 15:
                         if (val != 4) {
-                            // invalid byte!  FIXME: what do we do?  means it's not a picoboard!
+                            // invalid byte!  FIXME: what do we do?  means it's not a PicoBoard!
                         }
                         break;
                     default:
@@ -403,9 +402,9 @@ class Picoboard {
 };
 
 /**
- * Scratch 3.0 blocks to interact with a Picoboard peripheral.
+ * Scratch 3.0 blocks to interact with a PicoBoard peripheral.
  */
-class Scratch3PicoboardBlocks {
+class Scratch3PicoBoardBlocks {
 
     /**
      * @return {string} - the name of this extension.
@@ -418,11 +417,11 @@ class Scratch3PicoboardBlocks {
      * @return {string} - the ID of this extension.
      */
     static get EXTENSION_ID () {
-        return 'picoboard';
+        return 'PicoBoard';
     }
 
     /**
-     * Construct a set of Picoboard blocks.
+     * Construct a set of PicoBoard blocks.
      * @param {Runtime} runtime - the Scratch 3.0 runtime.
      */
     constructor (runtime) {
@@ -432,8 +431,8 @@ class Scratch3PicoboardBlocks {
          */
         this.runtime = runtime;
 
-        // Create a new Picoboard peripheral instance
-        this._peripheral = new Picoboard(this.runtime, Scratch3PicoboardBlocks.EXTENSION_ID);
+        // Create a new PicoBoard peripheral instance
+        this._peripheral = new PicoBoard(this.runtime, Scratch3PicoBoardBlocks.EXTENSION_ID);
 
         this._sensorNameMap = {
             'button pressed': "button",
@@ -457,15 +456,15 @@ class Scratch3PicoboardBlocks {
      */
     getInfo () {
         return {
-            id: Scratch3PicoboardBlocks.EXTENSION_ID,
-            name: Scratch3PicoboardBlocks.EXTENSION_NAME,
+            id: Scratch3PicoBoardBlocks.EXTENSION_ID,
+            name: Scratch3PicoBoardBlocks.EXTENSION_NAME,
             blockIconURI: blockIconURI,
             showStatusButton: true,
             blocks: [
                 {
                     opcode: 'whenSensorConnected',
                     text: formatMessage({
-                        id: 'picoboard.whenSensorConnected',
+                        id: 'PicoBoard.whenSensorConnected',
                         default: 'when [booleanSensor]',
                         description: 'when button pressed or sensor connected'
                     }),
@@ -481,7 +480,7 @@ class Scratch3PicoboardBlocks {
                 {
                     opcode: 'whenSensorPass',
                     text: formatMessage({
-                        id: 'picoboard.whenSensorPass',
+                        id: 'PicoBoard.whenSensorPass',
                         default: 'when [sensor] [lessMore] [reference]',
                         description: 'check for when sensor value is < or > than reference'
                     }),
@@ -506,7 +505,7 @@ class Scratch3PicoboardBlocks {
                 {
                     opcode: 'sensorPressed',
                     text: formatMessage({
-                        id: 'picoboard.sensorPressed',
+                        id: 'PicoBoard.sensorPressed',
                         default: 'is [booleanSensor]?',
                         description: 'is the button pressed or the sensor connected?'
                     }),
@@ -522,7 +521,7 @@ class Scratch3PicoboardBlocks {
                 {
                     opcode: 'sensor',
                     text: formatMessage({
-                        id: 'picoboard.sensor',
+                        id: 'PicoBoard.sensor',
                         default: '[sensor] value',
                         description: 'value of the sensor'
                     }),
@@ -662,4 +661,4 @@ class Scratch3PicoboardBlocks {
 
 };
 
-module.exports = Scratch3PicoboardBlocks;
+module.exports = Scratch3PicoBoardBlocks;
