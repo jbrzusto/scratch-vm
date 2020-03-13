@@ -11,7 +11,7 @@ const Base64Util = require('../../util/base64-util');
  * @type {string}
  */
 // eslint-disable-next-line max-len
-const blockIconURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAA+CAIAAAAzjQvQAAADvElEQVRo3u2Zz0sUYRjHHwM9SEhePMR2aIkQ6yQseBFEWJYQo4sdRFACIyIkuqQnxbyI0D9QomchFdn8RRnVDm2tJw/bBmaLiiu2uyWbbc3rzLfL0rOzjI6tsyD2vMzhO/t+3/eZz7wzPM+8Wwb6v9oZEmABFmABFmABFmABFmABFmABFmABFmABFmABFmABFuDTCHzzJq2ukq5TIkF9fSeIGCU6Vlbwt6XTKF2gfzxKtsLnz7OurqbGxtP+SCcSrL9/p7dvTzvwo0f0+TMpRdvbNDJycl7hMvkzTYBHR+ndO4rHKZmkvT3a36ffvymZpEiEHj4sNKdSBNgcw8POgTo7aXGR4nHKZEgpMgzKZimRIE2jgYFCc3c3hUL09SvpOuk6pVIUDlNPjxtpyTRxSHvzBjU1bE6l7G3Dw4eFqKtDKATDODDK5KTFPz2N/X0bm2liYeFwnGMDA1haOhaw14u1NYcQt26xf2rKwTw/7xKwUmhthdeLjg6Ew5b7eu+ezcBY7EjAS0uWqT58wOAg/H54PAgEMDRkWd6uLsvaPn+OlhY0N2Nigh8Q00RPjxvAum75/csXDqxpRQL7/dB1to2PO1yMprF5ednSFQpxVyRSgkprYYH1pUvFl9zl5Tm9uUldXQ7+2lrW09OWrpkZ1pcvlyAtaRrrc+eKnMTrZR2PO5hraqi62p6QiIJB1lVVVF/vNvCrV6wrKoqcpLKSdTLpYL56lcrKclrXaWXF0huNklJ8evGi28BXrrDOj8QZ7whVXDbL+uxZB3MkwnNWVFBdnaXX5+O3g4g+fnQbOP+Z2d21MeTfhfxLyW8bG/bvp23LZCid5tPWVktvS4vlcyUadRs4EGC9vm5jyL8LFy7YTxIMkmHktMdDT586BI3FWF+/bum6cYP1p09uVFqGgfFxtLWhvh6jo1CK08DjxzYDx8YsewB9ffD58OABXr7E7CzbClJ6OIzBQQQC8Hjg9+PuXYyNobc3Z+7s5DxsGJiYQHMzrl3D3BxPYhi4c6eUldb6uv3ApiZks/ZDYjG2+XzY2nII8fo1+589czAHg6UsLdNptLcfOPbJE/vhBZs+DQ1YXj4s0NqaxT85eWAtPTfnXi2tFGZmsLmJX7+gFHZ2sLiIhgaH4f39iEbx4wcMAz9/Ynsb4TAGBmyct2/jxQvE48hkoBRME7qOb9+wuoqpqUJzdzc0DckkdB1KIZ3G+/e4f98R5wgbAKaZy35KFZ9vZQNAgAVYgGXXUlZYgAVYgAVYgAVYgAX4JLU/Eka+jvDhxh8AAAAASUVORK5CYII=';
+const blockIconURI = 'data:image/png;base64,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';
 
 /**
  * Enum for picoboard BLE command protocol.
@@ -101,14 +101,14 @@ class Picoboard {
         };
 
         /**
-         * Most recent channel # received from serial port.
+         * Most recent channel # received from picoboard
          * @type {number}
          * @private
          */
         this._channel = null;
 
         /**
-         * Most recent high 3-bits of sensor reading received from serial port.
+         * Most recent high 3-bits of sensor reading received from picoboard
          * (Stored already shifted).
          * @type {number}
          * @private
@@ -149,16 +149,23 @@ class Picoboard {
 
     /**
      * @return {number} - the latest value received for the light sensor.
+     * Calculation as done in Scratch 2.0's picoExtension.js
      */
     get light () {
-        return 100.0 - Math.round(this._sensors.light / 1.023) / 10.0;
+        var v = this._sensors.light;
+        return (v < 25) ? 100 - v : Math.round((1023 - v) * (75 / 998));
     }
 
     /**
      * @return {number} - the latest value received for the sound sensor.
+     * Calculation as done in Scratch 2.0's picoExtension.js
      */
     get sound () {
-        return Math.round(this._sensors.sound / 1.023) / 10.0;
+        var v = this._sensors.sound;
+        v = Math.max(0, v - 18);
+        return (v < 50) ? v / 2 :
+            //noise ceiling
+        25 + Math.min(75, Math.round((v - 50) * (75 / 580)));
     }
 
     /**
@@ -170,30 +177,34 @@ class Picoboard {
 
     /**
      * @return {number} - the latest value received for RESISTANCE A.
+     * Calculation as done in Scratch 2.0's picoExtension.js
      */
     get A () {
-        return Math.round(this._sensors.A / 1.023) / 10.0;
+        return this._sensors.A / 10.23;
     }
 
     /**
      * @return {number} - the latest value received for RESISTANCE B.
+     * Calculation as done in Scratch 2.0's picoExtension.js
      */
     get B () {
-        return Math.round(this._sensors.B / 1.023) / 10.0;
+        return this._sensors.B / 10.23;
     }
 
     /**
      * @return {number} - the latest value received for RESISTANCE C.
+     * Calculation as done in Scratch 2.0's picoExtension.js
      */
     get C () {
-        return Math.round(this._sensors.C / 1.023) / 10.0;
+        return this._sensors.C / 10.23;
     }
 
     /**
      * @return {number} - the latest value received for RESISTANCE D.
+     * Calculation as done in Scratch 2.0's picoExtension.js
      */
     get D () {
-        return Math.round(this._sensors.D / 1.023) / 10.0;
+        return this._sensors.D / 10.23;
     }
 
     /**
@@ -321,7 +332,7 @@ class Picoboard {
      * 6 - sound
      * 7 - slider
      *
-     * @param {object} base64 - the incoming Serial data.
+     * @param {object} base64 - the incoming bytes from the picoboard
      * @private
      */
     _onMessage (base64) {
@@ -352,7 +363,7 @@ class Picoboard {
                         this._sensors.B = val;
                         break;
                     case 3:
-                        this._sensors.button = (0 == val);
+                        this._sensors.button = val;
                         break;
                     case 4:
                         this._sensors.A = val;
@@ -372,7 +383,7 @@ class Picoboard {
                         break;
                     case 15:
                         if (val != 4) {
-                            // invalid byte!  FIXME: what do we do?
+                            // invalid byte!  FIXME: what do we do?  means it's not a picoboard!
                         }
                         break;
                     default:
@@ -388,21 +399,6 @@ class Picoboard {
             () => this._ble.handleDisconnectError(BLEDataStoppedError),
             BLETimeout
         );
-    }
-
-    /**
-     * Handle apparent end of serial data.
-     */
-    _serialDataStoped () {
-        this._reset();
-        // Try send the "send us data" command.
-        // FIXME: do something better here
-        output = new Uint8Array(1);
-        // last channel value received; write constant
-        // byte 0x01 which tells picoboard firmware to
-        // transmit current sensor readings.
-        output[0] = 0x01;
-        this._serial.write(output);
     }
 };
 
@@ -438,6 +434,22 @@ class Scratch3PicoboardBlocks {
 
         // Create a new Picoboard peripheral instance
         this._peripheral = new Picoboard(this.runtime, Scratch3PicoboardBlocks.EXTENSION_ID);
+
+        this._sensorNameMap = {
+            'button pressed': "button",
+            'A connected': "A",
+            'B connected': "B",
+            'C connected': "C",
+            'D connected': "D",
+            'slider' : "slider",
+            'light' : "light",
+            'sound' : "sound",
+            'resistance-A': "A",
+            'resistance-B': "B",
+            'resistance-C': "C",
+            'resistance-D': "D"
+        };
+
     }
 
     /**
@@ -451,178 +463,116 @@ class Scratch3PicoboardBlocks {
             showStatusButton: true,
             blocks: [
                 {
-                    opcode: 'whenButtonPressed',
+                    opcode: 'whenSensorConnected',
                     text: formatMessage({
-                        id: 'picoboard.whenButtonPressed',
-                        default: 'when button pressed',
-                        description: 'when the button on the PicoBoard is pressed'
+                        id: 'picoboard.whenSensorConnected',
+                        default: 'when [booleanSensor]',
+                        description: 'when button pressed or sensor connected'
                     }),
                     blockType: BlockType.HAT,
                     arguments: {
+                        booleanSensor: {
+                            type: ArgumentType.STRING,
+                            menu: 'booleanSensor',
+                            defaultValue: 'button pressed'
+                        },
                     }
                 },
                 {
-                    opcode: 'isButtonPressed',
+                    opcode: 'whenSensorPass',
                     text: formatMessage({
-                        id: 'picoboard.isButtonPressed',
-                        default: 'button pressed?',
-                        description: 'is the button on the PicoBoard pressed?'
-                    }),
-                    blockType: BlockType.BOOLEAN,
-                    arguments: {
-                    }
-                },
-                '---',
-                {
-                    opcode: 'whenSensor',
-                    text: formatMessage({
-                        id: 'picoboard.whenSensor',
-                        default: 'when [SENSOR] [OP] [REFERENCE]',
+                        id: 'picoboard.whenSensorPass',
+                        default: 'when [sensor] [lessMore] [reference]',
                         description: 'check for when sensor value is < or > than reference'
                     }),
                     blockType: BlockType.HAT,
                     arguments: {
-                        SENSOR: {
+                        sensor: {
                             type: ArgumentType.STRING,
-                            menu: 'SENSOR',
+                            menu: 'sensor',
                             defaultValue: 'slider'
                         },
-                        OP: {
+                        lessMore: {
                             type: ArgumentType.STRING,
-                            menu: 'OP',
+                            menu: 'lessMore',
                             defaultValue: '<'
                         },
-                        REFERENCE: {
+                        reference: {
                             type: ArgumentType.NUMBER,
                             defaultValue: 50
                         }
                     }
                 },
                 {
-                    opcode: 'getSensor',
+                    opcode: 'sensorPressed',
                     text: formatMessage({
-                        id: 'picoboard.sensor',
-                        default: 'get [SENSOR]',
-                        description: 'get latest value for sensor'
+                        id: 'picoboard.sensorPressed',
+                        default: 'is [booleanSensor]?',
+                        description: 'is the button pressed or the sensor connected?'
                     }),
-                    blockType: BlockType.REPORTER,
+                    blockType: BlockType.BOOLEAN,
                     arguments: {
-                        SENSOR: {
+                        booleanSensor: {
                             type: ArgumentType.STRING,
-                            menu: 'SENSOR',
-                            defaultValue: 'slider'
+                            menu: 'booleanSensor',
+                            defaultValue: 'button pressed'
                         }
                     }
                 },
                 {
-                    opcode: 'getSlider',
+                    opcode: 'sensor',
                     text: formatMessage({
-                        id: 'picoboard.slider',
-                        default: 'slider',
-                        description: 'where is the slider positioned? (0 = left end; 100 = right end)'
+                        id: 'picoboard.sensor',
+                        default: '[sensor] value',
+                        description: 'value of the sensor'
                     }),
                     blockType: BlockType.REPORTER,
                     arguments: {
-                    }
-                },
-                {
-                    opcode: 'getLight',
-                    text: formatMessage({
-                        id: 'picoboard.light',
-                        default: 'light',
-                        description: 'what is the light level? (0 = dark; 100 = very bright)'
-                    }),
-                    blockType: BlockType.REPORTER,
-                    arguments: {
-                    }
-                },
-                {
-                    opcode: 'getSound',
-                    text: formatMessage({
-                        id: 'picoboard.sound',
-                        default: 'sound',
-                        description: 'what is the sound level? (0 = quiet; 100 = very loud)'
-                    }),
-                    blockType: BlockType.REPORTER,
-                    arguments: {
-                    }
-                },
-                {
-                    opcode: 'getA',
-                    text: formatMessage({
-                        id: 'picoboard.A',
-                        default: 'A',
-                        description: 'how much resistance across input A? (0 = none; 100 = high)'
-                    }),
-                    blockType: BlockType.REPORTER,
-                    arguments: {
-                    }
-                },
-                {
-                    opcode: 'getB',
-                    text: formatMessage({
-                        id: 'picoboard.B',
-                        default: 'B',
-                        description: 'how much resistance across input B? (0 = none; 100 = high)'
-                    }),
-                    blockType: BlockType.REPORTER,
-                    arguments: {
-                    }
-                },
-                {
-                    opcode: 'getC',
-                    text: formatMessage({
-                        id: 'picoboard.C',
-                        default: 'C',
-                        description: 'how much resistance across input C? (0 = none; 100 = high)'
-                    }),
-                    blockType: BlockType.REPORTER,
-                    arguments: {
-                    }
-                },
-                {
-                    opcode: 'getD',
-                    text: formatMessage({
-                        id: 'picoboard.D',
-                        default: 'D',
-                        description: 'how much resistance across input D? (0 = none; 100 = high)'
-                    }),
-                    blockType: BlockType.REPORTER,
-                    arguments: {
+                        sensor: {
+                            type: ArgumentType.STRING,
+                            menu: 'sensor',
+                            defaultValue: 'slider'
+                        }
                     }
                 },
             ],
             menus: {
-                SENSOR: {
-                    items: ['slider', 'light', 'sound', 'A', 'B', 'C', 'D']
+                booleanSensor: {
+                    items: ['button pressed', 'A connected', 'B connected', 'C connected', 'D connected']
                 },
-                OP: {
+                sensor: {
+                    items: ['slider', 'light', 'sound', 'resistance-A', 'resistance-B', 'resistance-C', 'resistance-D']
+                },
+                lessMore: {
                     acceptReporters: true,
-                    items: ['<', '>']
+                    items: ['>', '<']
                 }
             }
-        };
+        }
     }
 
     /**
-     * Test whether the button is pressed
-     * @param {object} args - ignored
+     * Test whether the button is pressed or a sensor is connected.
+     * Criterion for the latter taken directly from the Scratch 2.0 picoExtension.js
+     * @param {object} args - the block's arguments.
+     * @property {string} booleanSensor - the boolean sensor: 'button pressed', 'A connected', 'B connected', 'C connected', 'D connected'
      * @return {boolean} - true if the button is pressed.
      */
-    whenButtonPressed (args) {
-        return this._peripheral.button;
+    whenSensorConnected (args) {
+        console.log(JSON.stringify(args));
+        return this._peripheral[this._sensorNameMap[args.booleanSensor]] < 10
     }
 
     /**
      * Compare a sensor's level to a reference.
      * @param {object} args - the block's arguments.
-     * @property {string} SENSOR - the sensor: "slider", "light", "sound", "A", "B", "C", "D"
-     * @property {string} OP - the comparison operation: '<' or '>'.
-     * @property {number} REFERENCE - the value to compare against.
+     * @property {string} sensor - the sensor: 'slider', 'light', 'sound', 'resistance-A', 'resistance-B', 'resistance-C', 'resistance-D'
+     * @property {string} lessMore - the comparison operation: '<' or '>'.
+     * @property {number} reference - the value to compare against.
      * @return {boolean} - the result of the comparison, or false on error.
      */
-    whenSensor (args) {
-        val = this._peripheral[args.SENSOR];
+    whenSensorPass (args) {
+        val = this._peripheral[this._sensorNameMap[args.sensor]];
         switch (args.OP) {
         case '<':
             return val < cast.toNumber(args.REFERENCE);
@@ -635,22 +585,23 @@ class Scratch3PicoboardBlocks {
     }
 
     /**
-     * Test whether the button is pressed
-     * @param {object} args - ignored
+     * Test whether the button is pressed or the sensor connected
+     * @param {object} args - the block's arguments.
+     * @property {string} booleanSensor - the boolean sensor: 'button pressed', 'A connected', 'B connected', 'C connected', 'D connected'
      * @return {boolean} - true if the button is pressed.
      */
-    isButtonPressed (args) {
-        return this._peripheral.button;
+    sensorPressed (args) {
+        return this._peripheral[this._sensorNameMap[args.booleanSensor]] < 10;
     }
 
     /**
      * Get a sensor's level
      * @param {object} args - the block's arguments.
-     * @property {string} SENSOR - the sensor: "slider", "light", "sound", "A", "B", "C", "D"
+     * @property {string} SENSOR - the sensor 'slider', 'light', 'sound', 'resistance-A', 'resistance-B', 'resistance-C', 'resistance-D'
      * @return {number} - the sensor's latest value
      */
-    getSensor (args) {
-        return this._peripheral[args.SENSOR];
+    sensor (args) {
+        return this._peripheral[this._sensorNameMap[args.sensor]];
     }
 
     /**
