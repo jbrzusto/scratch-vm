@@ -335,7 +335,7 @@ class PicoBoard {
      * @private
      */
     _onMessage (base64) {
-//        console.log("Got message: " + base64 + "\n");
+        // DEBUG:  console.log("Got message: " + base64 + "\n");
         // parse data
         const data = Base64Util.base64ToUint8Array(base64);
         // read and parse as many bytes as are available,
@@ -558,7 +558,7 @@ class Scratch3PicoBoardBlocks {
      * @return {boolean} - true if the button is pressed.
      */
     whenSensorConnected (args) {
-        console.log(JSON.stringify(args));
+        // DEBUG: console.log(JSON.stringify(args));
         return this._peripheral[this._sensorNameMap[args.booleanSensor]] < 10
     }
 
@@ -578,7 +578,6 @@ class Scratch3PicoBoardBlocks {
         case '>':
             return val > cast.toNumber(args.reference);
         default:
-            log.warn("Got: " + JSON.stringify(args) + "\n");
             log.warn(`Unknown comparison operator in whenSensorPass: ${args.lessMore}`);
             return false;
         }
