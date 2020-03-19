@@ -1815,4 +1815,61 @@ addExtensionOp(weDo2, 'getTilt', {
     ]
 });
 
+const pb = 'PicoBoard';
+
+addExtensionOp(pb, 'whenSensorConnected', {
+    opcode: 'PicoBoard_whenSensorConnected',
+    argMap: [
+        {
+            type: 'input',
+            inputOp: 'PicoBoard_menu_booleanSensor',
+            inputName: 'booleanSensor'
+        }
+    ]
+});
+
+addExtensionOp(pb, 'whenSensorPass', {
+    opcode: 'PicoBoard_whenSensorPass',
+    argMap: [
+        {
+            type: 'input',
+            inputOp: 'PicoBoard_menu_sensor',
+            inputName: 'sensor'
+        },
+        {
+            type: 'input',
+            inputOp: 'PicoBoard_menu_lessMore',
+            inputName: 'lessMore'
+        },
+        {
+            type: 'input',
+            inputOp: 'math_number',
+            inputName: 'reference'
+        }
+    ]
+});
+
+addExtensionOp(pb, 'sensorPressed', {
+    opcode: 'PicoBoard_sensorPressed',
+    argMap: [
+        {
+            type: 'input',
+            inputOp: 'PicoBoard_menu_booleanSensor',
+            inputName: 'booleanSensor'
+        }
+    ]
+});
+
+addExtensionOp(pb, 'sensor', {
+    opcode: 'PicoBoard_sensor',
+    argMap: [
+        {
+            type: 'input',
+            inputOp: 'PicoBoard_menu_sensor',
+            inputName: 'sensor'
+        }
+    ]
+});
+
+
 module.exports = specMap;

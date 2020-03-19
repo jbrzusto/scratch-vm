@@ -572,13 +572,14 @@ class Scratch3PicoBoardBlocks {
      */
     whenSensorPass (args) {
         val = this._peripheral[this._sensorNameMap[args.sensor]];
-        switch (args.OP) {
+        switch (args.lessMore) {
         case '<':
-            return val < cast.toNumber(args.REFERENCE);
+            return val < cast.toNumber(args.reference);
         case '>':
-            return val > cast.toNumber(args.REFERENCE);
+            return val > cast.toNumber(args.reference);
         default:
-            log.warn(`Unknown comparison operator in whenSensor: ${args.OP}`);
+            log.warn("Got: " + JSON.stringify(args) + "\n");
+            log.warn(`Unknown comparison operator in whenSensorPass: ${args.lessMore}`);
             return false;
         }
     }
